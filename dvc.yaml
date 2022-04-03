@@ -3,6 +3,7 @@ stages:
     cmd: python src/load_and_save.py --config=params.yaml
     deps:
       - src/load_and_save.py
+      - src/utils/common_utils.py
     params:
       - data_source.s3_source
       - artifacts.raw_local_data
@@ -13,6 +14,7 @@ stages:
     deps:
       - src/split_data.py
       - artifacts/raw_local_data_dir/data.csv
+      - src/utils/common_utils.py
     params:
       - base.random_state
       - base.test_size
@@ -28,6 +30,7 @@ stages:
     deps:
       - src/train.py
       - artifacts/processed_data/train.csv
+      - src/utils/common_utils.py
     params:
       - base.random_state
       - base.target_col
@@ -45,6 +48,7 @@ stages:
       - src/evaluate.py
       - artifacts/saved_models/model.joblib
       - artifacts/processed_data/test.csv
+      - src/utils/common_utils.py
     params:
       - base.target_col
       - artifacts.split_data.test_path
