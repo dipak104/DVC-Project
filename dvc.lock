@@ -4,8 +4,8 @@ stages:
     cmd: python src/load_and_save.py --config=params.yaml
     deps:
     - path: src/load_and_save.py
-      md5: 48611e059c5f91404cf8a02b250d3b57
-      size: 950
+      md5: d2df484f511cd41074d8ec4f1c40e2d3
+      size: 1178
     params:
       params.yaml:
         artifacts.raw_local_data: artifacts/raw_local_data_dir/data.csv
@@ -21,8 +21,8 @@ stages:
       md5: b81c95040ccc1f04820095a237ba3c61
       size: 95085
     - path: src/split_data.py
-      md5: 13139111d39b86b3c21aad92b15cc52b
-      size: 1243
+      md5: b59a9be14a48a07469c9cf19c7bf3bef
+      size: 1465
     params:
       params.yaml:
         artifacts.raw_local_data: artifacts/raw_local_data_dir/data.csv
@@ -45,8 +45,8 @@ stages:
       md5: eb194c439f11a763691ae2f66e305d74
       size: 76075
     - path: src/train.py
-      md5: e1dbe149d13b186e23d0473b2f5e6b3f
-      size: 1690
+      md5: e76a81acaa140ba84b26480f563b04d3
+      size: 1952
     params:
       params.yaml:
         artifacts.split_data.train_path: artifacts/processed_data/train.csv
@@ -61,3 +61,23 @@ stages:
     - path: artifacts/saved_models/model.joblib
       md5: 7d67ba41a614240664e18c1a11bdc07a
       size: 1316
+  evaluate:
+    cmd: python src/evaluate.py --config=params.yaml
+    deps:
+    - path: artifacts/processed_data/test.csv
+      md5: 420389d6fcceeb7da1311c6b14af875f
+      size: 19157
+    - path: artifacts/saved_models/model.joblib
+      md5: 7d67ba41a614240664e18c1a11bdc07a
+      size: 1316
+    - path: src/evaluate.py
+      md5: 6b9634b7ee751daf1f66d71c099aa8b5
+      size: 1683
+    params:
+      params.yaml:
+        artifacts.split_data.test_path: artifacts/processed_data/test.csv
+        base.target_col: quality
+    outs:
+    - path: artifacts/report/scores.json
+      md5: 86524820870673b16aeaa90890571e40
+      size: 101

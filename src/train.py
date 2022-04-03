@@ -5,6 +5,9 @@ import logging
 from sklearn.linear_model import ElasticNet
 import joblib
 
+logging_str = "[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
+logging.basicConfig(level=logging.DEBUG, format=logging_str)
+
 def train(config_path):
     config = read_params(config_path)
     artifacts = config["artifacts"]
@@ -48,6 +51,7 @@ def train(config_path):
     save_reports(params_file, params)
 
     joblib.dump(lr, model_path)
+    logging.info(f"Model is saved at {model_path}")
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
@@ -56,5 +60,7 @@ if __name__ == '__main__':
 
     try:
         data = train(config_path=parsed_args.config)
+        logging.info("Training is completed")
     except Exception as e:
-        raise e
+        logging.error(e)
+        #raise e
