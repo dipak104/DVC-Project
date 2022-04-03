@@ -22,7 +22,7 @@ def create_dir(dirs: list):
 def save_local_df(df, df_path, header=False):
     if header:
         new_cols = [col.replace(" ","_") for col in df.columns]
-        df.to_csv(df_path, index=False)
+        df.to_csv(df_path, index=False, header=new_cols)
     else:
         df.to_csv(df_path, index=False)
 

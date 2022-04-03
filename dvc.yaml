@@ -23,3 +23,19 @@ stages:
     outs:
       - artifacts/processed_data/train.csv
       - artifacts/processed_data/test.csv
+  train:
+    cmd: python src/train.py --config=params.yaml
+    deps:
+      - src/train.py
+      - artifacts/processed_data/train.csv
+    params:
+      - base.random_state
+      - base.target_col
+      - artifacts.split_data.train_path
+      - estimators.ElasticNet.params.alpha
+      - estimators.ElasticNet.params.l1_ratio
+    metrics:
+      - artifacts/report/params.json:
+          cache: false
+    outs:
+      - artifacts/saved_models/model.joblib

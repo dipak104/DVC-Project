@@ -16,7 +16,7 @@ def get_data(config_path):
     clean_prev_dirs_if_exists(artifacts_dir)
 
     create_dir(dirs=[artifacts_dir, raw_local_data_dir])
-    df = pd.read_csv(data_path, sep=";")
+    df = pd.read_csv(data_path, sep=",")
     save_local_df(df, raw_local_data, header=True)
 
 
