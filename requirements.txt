@@ -1,0 +1,19 @@
+#DVC requirements
+
+dvc
+dvc[gdrive]
+dvc[s3]
+
+#Required Lib
+
+pandas
+scikit-learn
+
+#Testing
+
+pytest
+tox
+flake8
+
+#Webapp
+flask
